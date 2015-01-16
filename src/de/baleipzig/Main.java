@@ -28,5 +28,23 @@ public class Main {
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
+
+        jb.addVetoableChangeListener(evt -> {
+            if ("priceInCents".equals(evt.getPropertyName()) && ((int) evt.getNewValue()) > 250) {
+                throw new PropertyVetoException(String.format("Value cannot exceed 250, but was %d", evt.getNewValue()), evt);
+            }
+        });
+
+        try {
+            jb.setPriceInCents(300);
+        } catch (PropertyVetoException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            jb.setPriceInCents(150);
+        } catch (PropertyVetoException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
