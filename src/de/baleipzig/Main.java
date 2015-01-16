@@ -15,5 +15,18 @@ public class Main {
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
+
+        jb.addPropertyChangeListener(evt -> {
+            System.out.println(String.format("Changed property %s from %s to %s",
+                    evt.getPropertyName(), evt.getOldValue(), evt.getNewValue()));
+        });
+
+        jb.setColor(Color.BLACK);
+
+        try {
+            jb.setPriceInCents(200);
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        }
     }
 }
